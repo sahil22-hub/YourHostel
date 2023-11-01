@@ -1,4 +1,4 @@
-import 'package:emulatorapp/constants/constants.dart';
+
 import 'package:emulatorapp/constants/size_config.dart';
 import 'package:emulatorapp/models/hostel.dart';
 import 'package:emulatorapp/providers/hostel_detail.dart';
@@ -18,10 +18,10 @@ class HostelScreen extends StatelessWidget {
   final HostelModel hostel;
   // final List<String>? favHostel;
 
-  HostelScreen(
-    this.hostel,
+  const HostelScreen(
+    this.hostel, {Key? key},
     // this.favHostel,
-  );
+  ) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class HostelScreen extends StatelessWidget {
             .fetchHostelData(hostel.slug),
         builder: (BuildContext context, AsyncSnapshot<dynamic> dataSnapshot) {
           if (dataSnapshot.hasError) {
-            return NetworkErrorMessage();
+            return const NetworkErrorMessage();
           }
           if (dataSnapshot.connectionState == ConnectionState.waiting) {
             return CustomScrollView(slivers: [
@@ -41,7 +41,7 @@ class HostelScreen extends StatelessWidget {
                 expandedHeight: 50,
                 backgroundColor: Theme.of(context).primaryColor,
                 systemOverlayStyle: SystemUiOverlayStyle.light,
-                brightness: Brightness.dark,
+                // brightness: Brightness.dark,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
                     hostel.name,
@@ -83,7 +83,6 @@ class HostelScreen extends StatelessWidget {
                       expandedHeight: 50,
                       backgroundColor: Theme.of(context).primaryColor,
                       systemOverlayStyle: SystemUiOverlayStyle.light,
-                      brightness: Brightness.dark,
                       flexibleSpace: FlexibleSpaceBar(
                         title: Text(
                           hostel.name,
@@ -95,7 +94,7 @@ class HostelScreen extends StatelessWidget {
                         ),
                         centerTitle: true,
                       ),
-                      elevation: 0,
+                      elevation: 0, systemOverlayStyle: SystemUiOverlayStyle.light,
                     ),
                     SliverToBoxAdapter(
                       child: HostelBanner(img: hostel.logo),
